@@ -1,0 +1,27 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: 'fhir-kafka'
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    producer:
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: hapi-fhir-server
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+
+kafka:
+  topics:
+    fhir-resource-created: "fhir-resource-created"
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
